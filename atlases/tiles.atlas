@@ -1,0 +1,121 @@
+animations {
+  id: "tile_white_01"
+  images {
+    image: "/assets/images/tile_white_01.png"
+  }
+  playback: PLAYBACK_NONE
+  fps: 0
+}
+animations {
+  id: "tile_white_02"
+  images {
+    image: "/assets/images/tile_white_02.png"
+  }
+  playback: PLAYBACK_NONE
+  fps: 0
+}
+animations {
+  id: "tile_white_03"
+  images {
+    image: "/assets/images/tile_white_03.png"
+  }
+  playback: PLAYBACK_NONE
+  fps: 0
+}
+animations {
+  id: "tile_white_04"
+  images {
+    image: "/assets/images/tile_white_04.png"
+  }
+  playback: PLAYBACK_NONE
+  fps: 0
+}
+animations {
+  id: "tile_white_05"
+  images {
+    image: "/assets/images/tile_white_05.png"
+  }
+  playback: PLAYBACK_NONE
+  fps: 0
+}
+animations {
+  id: "tile_white_06"
+  images {
+    image: "/assets/images/tile_white_06.png"
+  }
+  playback: PLAYBACK_NONE
+  fps: 0
+}
+animations {
+  id: "tile_white_07"
+  images {
+    image: "/assets/images/tile_white_07.png"
+  }
+  playback: PLAYBACK_NONE
+  fps: 0
+}
+animations {
+  id: "tile_white_08"
+  images {
+    image: "/assets/images/tile_white_08.png"
+  }
+  playback: PLAYBACK_NONE
+  fps: 0
+}
+animations {
+  id: "tile_white_09"
+  images {
+    image: "/assets/images/tile_white_09.png"
+  }
+  playback: PLAYBACK_NONE
+  fps: 0
+}
+animations {
+  id: "tile_white_10"
+  images {
+    image: "/assets/images/tile_white_10.png"
+  }
+  playback: PLAYBACK_NONE
+  fps: 0
+}
+animations {
+  id: "tile_white_11"
+  images {
+    image: "/assets/images/tile_white_11.png"
+  }
+  playback: PLAYBACK_NONE
+  fps: 0
+}
+animations {
+  id: "tile_white_12"
+  images {
+    image: "/assets/images/tile_white_12.png"
+  }
+  playback: PLAYBACK_NONE
+  fps: 0
+}
+animations {
+  id: "tile_white_13"
+  images {
+    image: "/assets/images/tile_white_13.png"
+  }
+  playback: PLAYBACK_NONE
+  fps: 0
+}
+animations {
+  id: "tile_white_14"
+  images {
+    image: "/assets/images/tile_white_14.png"
+  }
+  playback: PLAYBACK_NONE
+  fps: 0
+}
+animations {
+  id: "tile_white_15"
+  images {
+    image: "/assets/images/tile_white_15.png"
+  }
+  playback: PLAYBACK_NONE
+  fps: 0
+}
+extrude_borders: 2

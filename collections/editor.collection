@@ -1,0 +1,36 @@
+name: "editor"
+instances {
+  id: "editor"
+  prototype: "/objects/editor.go"
+}
+instances {
+  id: "camera"
+  prototype: "/starly/starly.go"
+  position {
+    x: 192.0
+    y: 108.0
+  }
+  component_properties {
+    id: "script"
+    properties {
+      id: "viewport_width"
+      value: "1920.0"
+      type: PROPERTY_TYPE_NUMBER
+    }
+    properties {
+      id: "viewport_height"
+      value: "1080.0"
+      type: PROPERTY_TYPE_NUMBER
+    }
+    properties {
+      id: "zoom"
+      value: "5.0"
+      type: PROPERTY_TYPE_NUMBER
+    }
+  }
+}
+instances {
+  id: "mouse"
+  prototype: "/objects/mouse.go"
+}
+scale_along_z: 0

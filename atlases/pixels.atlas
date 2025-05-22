@@ -1,0 +1,7 @@
+animations {
+  id: "white"
+  images {
+    image: "/assets/images/white.png"
+  }
+  playback: PLAYBACK_LOOP_FORWARD
+}
