@@ -4,5 +4,5 @@ components {
 }
 components {
   id: "collider"
-  component: "/colliders/tile_ui.collisionobject"
+  component: "/colliders/ui_tile.collisionobject"
 }

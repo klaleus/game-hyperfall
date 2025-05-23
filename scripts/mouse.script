@@ -1,0 +1,25 @@
+--------------------------------------------------------------------------------
+-- Dependencies
+--------------------------------------------------------------------------------
+
+local m_ui = require("modules.ui")
+
+--------------------------------------------------------------------------------
+-- Private Variables
+--------------------------------------------------------------------------------
+
+local _message_trigger_response = hash("trigger_response")
+
+local _collision_group_ui = hash("ui")
+
+--------------------------------------------------------------------------------
+-- Public Functions
+--------------------------------------------------------------------------------
+
+function on_message(self, message_id, message, sender)
+	if message_id == _message_trigger_response then
+		if message.other_group == _collision_group_ui then
+			m_ui.state(message.other_id, message.enter and m_ui.state_enter or m_ui.state_exit)
+		end
+	end
+end

@@ -1,0 +1,6 @@
+default_animation: "editor_grid"
+material: "/materials/tile.material"
+textures {
+  sampler: "texture_sampler"
+  texture: "/atlases/ui.atlas"
+}

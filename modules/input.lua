@@ -16,6 +16,8 @@ local _action_id_key_w = hash("key_w")
 local _action_id_key_a = hash("key_a")
 local _action_id_key_s = hash("key_s")
 local _action_id_key_d = hash("key_d")
+local _action_id_mouse_button_left = hash("mouse_button_left")
+local _action_id_mouse_button_right = hash("mouse_button_right")
 local _action_id_mouse_wheel_up = hash("mouse_wheel_up")
 local _action_id_mouse_wheel_down = hash("mouse_wheel_down")
 
@@ -24,6 +26,8 @@ local _input_up = hash("up")
 local _input_left = hash("left")
 local _input_down = hash("down")
 local _input_right = hash("right")
+local _input_mouse_button_left = hash("mouse_button_left")
+local _input_mouse_button_right = hash("mouse_button_right")
 
 local _bindings =
 {
@@ -31,7 +35,9 @@ local _bindings =
 	[_action_id_key_w] = _input_up,
 	[_action_id_key_a] = _input_left,
 	[_action_id_key_s] = _input_down,
-	[_action_id_key_d] = _input_right
+	[_action_id_key_d] = _input_right,
+	[_action_id_mouse_button_left] = _input_mouse_button_left,
+	[_action_id_mouse_button_right] = _input_mouse_button_right
 }
 
 local _states =
@@ -40,7 +46,9 @@ local _states =
 	[_input_up] = _state_up,
 	[_input_left] = _state_up,
 	[_input_down] = _state_up,
-	[_input_right] = _state_up
+	[_input_right] = _state_up,
+	[_input_mouse_button_left] = _state_up,
+	[_input_mouse_button_right] = _state_up
 }
 
 local _mouse_position = vmath.vector3()
@@ -56,6 +64,8 @@ m_input.input_up = _input_up
 m_input.input_left = _input_left
 m_input.input_down = _input_down
 m_input.input_right = _input_right
+m_input.input_mouse_button_left = _input_mouse_button_left
+m_input.input_mouse_button_right = _input_mouse_button_right
 
 m_input.state_up = _state_up
 m_input.state_pressed = _state_pressed

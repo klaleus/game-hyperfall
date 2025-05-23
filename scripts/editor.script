@@ -4,6 +4,7 @@
 
 local m_camera = require("modules.camera")
 local m_input = require("modules.input")
+local m_ui = require("modules.ui")
 
 local m_starly = require("starly.starly")
 
@@ -19,53 +20,12 @@ local _mouse_object = hash("/mouse")
 -- Private Functions
 --------------------------------------------------------------------------------
 
-local function create_ui()
-	local factory_url = msg.url(nil, "/editor", "factory_tile_ui")
-	local tile_white_01 = factory.create(factory_url, vmath.vector3(12, 204, 0))
-	local tile_white_01_sprite_url = msg.url(nil, tile_white_01, "sprite")
-	sprite.play_flipbook(tile_white_01_sprite_url, "tile_white_01")
-	local tile_white_02 = factory.create(factory_url, vmath.vector3(28, 204, 0))
-	local tile_white_02_sprite_url = msg.url(nil, tile_white_02, "sprite")
-	sprite.play_flipbook(tile_white_02_sprite_url, "tile_white_02")
-	local tile_white_03 = factory.create(factory_url, vmath.vector3(44, 204, 0))
-	local tile_white_03_sprite_url = msg.url(nil, tile_white_03, "sprite")
-	sprite.play_flipbook(tile_white_03_sprite_url, "tile_white_03")
-	local tile_white_04 = factory.create(factory_url, vmath.vector3(60, 204, 0))
-	local tile_white_04_sprite_url = msg.url(nil, tile_white_04, "sprite")
-	sprite.play_flipbook(tile_white_04_sprite_url, "tile_white_04")
-	local tile_white_05 = factory.create(factory_url, vmath.vector3(76, 204, 0))
-	local tile_white_05_sprite_url = msg.url(nil, tile_white_05, "sprite")
-	sprite.play_flipbook(tile_white_05_sprite_url, "tile_white_05")
-	local tile_white_06 = factory.create(factory_url, vmath.vector3(12, 188, 0))
-	local tile_white_06_sprite_url = msg.url(nil, tile_white_06, "sprite")
-	sprite.play_flipbook(tile_white_06_sprite_url, "tile_white_06")
-	local tile_white_07 = factory.create(factory_url, vmath.vector3(28, 188, 0))
-	local tile_white_07_sprite_url = msg.url(nil, tile_white_07, "sprite")
-	sprite.play_flipbook(tile_white_07_sprite_url, "tile_white_07")
-	local tile_white_08 = factory.create(factory_url, vmath.vector3(44, 188, 0))
-	local tile_white_08_sprite_url = msg.url(nil, tile_white_08, "sprite")
-	sprite.play_flipbook(tile_white_08_sprite_url, "tile_white_08")
-	local tile_white_09 = factory.create(factory_url, vmath.vector3(60, 188, 0))
-	local tile_white_09_sprite_url = msg.url(nil, tile_white_09, "sprite")
-	sprite.play_flipbook(tile_white_09_sprite_url, "tile_white_09")
-	local tile_white_10 = factory.create(factory_url, vmath.vector3(76, 188, 0))
-	local tile_white_10_sprite_url = msg.url(nil, tile_white_10, "sprite")
-	sprite.play_flipbook(tile_white_10_sprite_url, "tile_white_10")
-	local tile_white_11 = factory.create(factory_url, vmath.vector3(12, 172, 0))
-	local tile_white_11_sprite_url = msg.url(nil, tile_white_11, "sprite")
-	sprite.play_flipbook(tile_white_11_sprite_url, "tile_white_11")
-	local tile_white_12 = factory.create(factory_url, vmath.vector3(28, 172, 0))
-	local tile_white_12_sprite_url = msg.url(nil, tile_white_12, "sprite")
-	sprite.play_flipbook(tile_white_12_sprite_url, "tile_white_12")
-	local tile_white_13 = factory.create(factory_url, vmath.vector3(44, 172, 0))
-	local tile_white_13_sprite_url = msg.url(nil, tile_white_13, "sprite")
-	sprite.play_flipbook(tile_white_13_sprite_url, "tile_white_13")
-	local tile_white_14 = factory.create(factory_url, vmath.vector3(60, 172, 0))
-	local tile_white_14_sprite_url = msg.url(nil, tile_white_14, "sprite")
-	sprite.play_flipbook(tile_white_14_sprite_url, "tile_white_14")
-	local tile_white_15 = factory.create(factory_url, vmath.vector3(76, 172, 0))
-	local tile_white_15_sprite_url = msg.url(nil, tile_white_15, "sprite")
-	sprite.play_flipbook(tile_white_15_sprite_url, "tile_white_15")
+local function handle_move()
+	local mouse_position = m_input.get_mouse_position()
+	local world_position = m_starly.screen_to_world(m_camera.object, mouse_position.x, mouse_position.y, true)
+	if world_position then
+		go.set_position(world_position, _mouse_object)
+	end
 end
 
 --------------------------------------------------------------------------------
@@ -74,13 +34,10 @@ end
 
 function init(self)
 	msg.post("#", _message_acquire_input_focus)
-	create_ui()
+	m_ui.init(m_ui.group_editor)
 end
 
 function update(self, dt)
-	local mouse_position = m_input.get_mouse_position()
-	local world_position = m_starly.screen_to_world(m_camera.object, mouse_position.x, mouse_position.y, true)
-	if world_position then
-		go.set_position(world_position, _mouse_object)
-	end
+	m_ui.update()
+	handle_move()
 end

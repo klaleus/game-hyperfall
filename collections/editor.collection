@@ -33,4 +33,124 @@ instances {
   id: "mouse"
   prototype: "/objects/mouse.go"
 }
+instances {
+  id: "ui_tile_white_01"
+  prototype: "/objects/ui_tile.go"
+  position {
+    x: 12.0
+    y: 204.0
+  }
+}
+instances {
+  id: "ui_tile_white_02"
+  prototype: "/objects/ui_tile.go"
+  position {
+    x: 28.0
+    y: 204.0
+  }
+}
+instances {
+  id: "ui_tile_white_03"
+  prototype: "/objects/ui_tile.go"
+  position {
+    x: 44.0
+    y: 204.0
+  }
+}
+instances {
+  id: "ui_tile_white_04"
+  prototype: "/objects/ui_tile.go"
+  position {
+    x: 60.0
+    y: 204.0
+  }
+}
+instances {
+  id: "ui_tile_white_05"
+  prototype: "/objects/ui_tile.go"
+  position {
+    x: 76.0
+    y: 204.0
+  }
+}
+instances {
+  id: "ui_tile_white_06"
+  prototype: "/objects/ui_tile.go"
+  position {
+    x: 12.0
+    y: 180.0
+  }
+}
+instances {
+  id: "ui_tile_white_07"
+  prototype: "/objects/ui_tile.go"
+  position {
+    x: 28.0
+    y: 180.0
+  }
+}
+instances {
+  id: "ui_tile_white_08"
+  prototype: "/objects/ui_tile.go"
+  position {
+    x: 44.0
+    y: 180.0
+  }
+}
+instances {
+  id: "ui_tile_white_09"
+  prototype: "/objects/ui_tile.go"
+  position {
+    x: 60.0
+    y: 180.0
+  }
+}
+instances {
+  id: "ui_tile_white_10"
+  prototype: "/objects/ui_tile.go"
+  position {
+    x: 76.0
+    y: 180.0
+  }
+}
+instances {
+  id: "ui_tile_white_11"
+  prototype: "/objects/ui_tile.go"
+  position {
+    x: 12.0
+    y: 156.0
+  }
+}
+instances {
+  id: "ui_tile_white_12"
+  prototype: "/objects/ui_tile.go"
+  position {
+    x: 28.0
+    y: 156.0
+  }
+}
+instances {
+  id: "ui_tile_white_13"
+  prototype: "/objects/ui_tile.go"
+  position {
+    x: 44.0
+    y: 156.0
+  }
+}
+instances {
+  id: "ui_tile_white_14"
+  prototype: "/objects/ui_tile.go"
+  position {
+    x: 60.0
+    y: 156.0
+  }
+}
+instances {
+  id: "ui_tile_white_15"
+  prototype: "/objects/ui_tile.go"
+  position {
+    x: 76.0
+    y: 156.0
+  }
+}
 scale_along_z: 0

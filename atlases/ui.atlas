@@ -1,0 +1,9 @@
+animations {
+  id: "editor_grid"
+  images {
+    image: "/assets/images/editor_grid.png"
+  }
+  playback: PLAYBACK_NONE
+  fps: 0
+}
+extrude_borders: 2
