@@ -7,10 +7,6 @@ components {
   component: "/factories/tile.factory"
 }
 components {
-  id: "factory_tile_ui"
-  component: "/factories/tile_ui.factory"
-}
-components {
   id: "sprite_editor_grid"
   component: "/sprites/editor_grid.sprite"
   position {

@@ -19,3 +19,5 @@ embedded_collision_shape {
   data: 4.0
   data: 0.5
 }
+event_collision: false
+event_contact: false

@@ -1,17 +1,24 @@
 local m_input = {}
 
 --------------------------------------------------------------------------------
+-- Dependencies
+--------------------------------------------------------------------------------
+
+local m_camera = require("modules.camera")
+
+local m_starly = require("starly.starly")
+
+--------------------------------------------------------------------------------
 -- Private Variables
 --------------------------------------------------------------------------------
 
-local _state_up = 1
-local _state_pressed = 2
-local _state_down = 4
-local _state_released = 8
-local _state_idle = bit.bor(_state_up, _state_released)
-local _state_active = bit.bor(_state_down, _state_pressed)
+local _state_up = hash("up")
+local _state_pressed = hash("pressed")
+local _state_down = hash("down")
+local _state_released = hash("released")
 
 local _action_id_key_f11 = hash("key_f11")
+local _action_id_key_esc = hash("key_esc")
 local _action_id_key_w = hash("key_w")
 local _action_id_key_a = hash("key_a")
 local _action_id_key_s = hash("key_s")
@@ -22,6 +29,7 @@ local _action_id_mouse_wheel_up = hash("mouse_wheel_up")
 local _action_id_mouse_wheel_down = hash("mouse_wheel_down")
 
 local _input_fullscreen = hash("fullscreen")
+local _input_escape = hash("escape")
 local _input_up = hash("up")
 local _input_left = hash("left")
 local _input_down = hash("down")
@@ -32,6 +40,7 @@ local _input_mouse_button_right = hash("mouse_button_right")
 local _bindings =
 {
 	[_action_id_key_f11] = _input_fullscreen,
+	[_action_id_key_esc] = _input_escape,
 	[_action_id_key_w] = _input_up,
 	[_action_id_key_a] = _input_left,
 	[_action_id_key_s] = _input_down,
@@ -43,6 +52,7 @@ local _bindings =
 local _states =
 {
 	[_input_fullscreen] = _state_up,
+	[_input_escape] = _state_up,
 	[_input_up] = _state_up,
 	[_input_left] = _state_up,
 	[_input_down] = _state_up,
@@ -60,6 +70,7 @@ local _mouse_delta_scroll = 0
 --------------------------------------------------------------------------------
 
 m_input.input_fullscreen = _input_fullscreen
+m_input.input_escape = _input_escape
 m_input.input_up = _input_up
 m_input.input_left = _input_left
 m_input.input_down = _input_down
@@ -71,17 +82,17 @@ m_input.state_up = _state_up
 m_input.state_pressed = _state_pressed
 m_input.state_down = _state_down
 m_input.state_released = _state_released
-m_input.state_idle = _state_idle
-m_input.state_active = _state_active
 
 --------------------------------------------------------------------------------
 -- Private Functions
 --------------------------------------------------------------------------------
 
 local function move_mouse(screen_x, screen_y)
-	local position = vmath.vector3(screen_x, screen_y, 0)
-	_mouse_delta_position = position - _mouse_position
-	_mouse_position = position
+	local world_position = m_starly.screen_to_world(m_camera.object, screen_x, screen_y, true)
+	if world_position then
+		_mouse_delta_position = world_position - _mouse_position
+		_mouse_position = world_position
+	end
 end
 
 --------------------------------------------------------------------------------
@@ -119,12 +130,16 @@ function m_input.update()
 	_mouse_delta_scroll = 0
 end
 
-function m_input.get_binding(action_id)
-	return _bindings[action_id]
+function m_input.get_state(input)
+	return _states[input]
 end
 
-function m_input.get_state(id)
-	return _states[id]
+function m_input.is_state_active(input)
+	return _states[input] == _state_down or _states[input] == _state_pressed
+end
+
+function m_input.is_state_inactive(input)
+	return _states[input] == _state_up or _states[input] == _state_released
 end
 
 function m_input.get_mouse_position()

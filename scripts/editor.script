@@ -2,11 +2,9 @@
 -- Dependencies
 --------------------------------------------------------------------------------
 
-local m_camera = require("modules.camera")
 local m_input = require("modules.input")
+local m_tile = require("modules.tile")
 local m_ui = require("modules.ui")
-
-local m_starly = require("starly.starly")
 
 --------------------------------------------------------------------------------
 -- Private Variables
@@ -14,18 +12,84 @@ local m_starly = require("starly.starly")
 
 local _message_acquire_input_focus = hash("acquire_input_focus")
 
-local _mouse_object = hash("/mouse")
+local _canvas = {}
+
+local _prototype =
+{
+	object = nil,
+	data = nil
+}
+
+local _prototype_map =
+{
+	[m_ui.object_editor_ui_tile_white_01] = { callback = m_tile.create, arg = m_tile.tile_white_01 },
+	[m_ui.object_editor_ui_tile_white_02] = { callback = m_tile.create, arg = m_tile.tile_white_02 },
+	[m_ui.object_editor_ui_tile_white_03] = { callback = m_tile.create, arg = m_tile.tile_white_03 },
+	[m_ui.object_editor_ui_tile_white_04] = { callback = m_tile.create, arg = m_tile.tile_white_04 },
+	[m_ui.object_editor_ui_tile_white_05] = { callback = m_tile.create, arg = m_tile.tile_white_05 },
+	[m_ui.object_editor_ui_tile_white_06] = { callback = m_tile.create, arg = m_tile.tile_white_06 },
+	[m_ui.object_editor_ui_tile_white_07] = { callback = m_tile.create, arg = m_tile.tile_white_07 },
+	[m_ui.object_editor_ui_tile_white_08] = { callback = m_tile.create, arg = m_tile.tile_white_08 },
+	[m_ui.object_editor_ui_tile_white_09] = { callback = m_tile.create, arg = m_tile.tile_white_09 },
+	[m_ui.object_editor_ui_tile_white_10] = { callback = m_tile.create, arg = m_tile.tile_white_10 },
+	[m_ui.object_editor_ui_tile_white_11] = { callback = m_tile.create, arg = m_tile.tile_white_11 },
+	[m_ui.object_editor_ui_tile_white_12] = { callback = m_tile.create, arg = m_tile.tile_white_12 },
+	[m_ui.object_editor_ui_tile_white_13] = { callback = m_tile.create, arg = m_tile.tile_white_13 },
+	[m_ui.object_editor_ui_tile_white_14] = { callback = m_tile.create, arg = m_tile.tile_white_14 },
+	[m_ui.object_editor_ui_tile_white_15] = { callback = m_tile.create, arg = m_tile.tile_white_15 }
+}
 
 --------------------------------------------------------------------------------
 -- Private Functions
 --------------------------------------------------------------------------------
 
-local function handle_move()
-	local mouse_position = m_input.get_mouse_position()
-	local world_position = m_starly.screen_to_world(m_camera.object, mouse_position.x, mouse_position.y, true)
-	if world_position then
-		go.set_position(world_position, _mouse_object)
+local function ui_enter_callback(object)
+	
+end
+
+local function ui_exit_callback(object)
+	
+end
+
+local function ui_selected_callback(object)
+	if _prototype.object then
+		go.delete(_prototype.object)
 	end
+	_prototype.data = _prototype_map[object]
+	_prototype.object = _prototype.data.callback(_prototype.data.arg)
+	local position = m_input.get_mouse_position()
+	go.set_position(position, _prototype.object)
+	local sprite_url = msg.url(nil, _prototype.object, "sprite")
+	go.set(sprite_url, "color.w", 0.5)
+end
+
+local function check_canvas_bounds(mouse_position)
+	return 96 <= mouse_position.x and mouse_position.x <= 384 and 0 <= mouse_position.y and mouse_position.y <= 216
+end
+
+local function get_canvas_key(mouse_position)
+	if not check_canvas_bounds(mouse_position) then
+		return
+	end
+	local tile_position = m_tile.pixel_to_tile(mouse_position)
+	local canvas_key = tostring(tile_position.x) .. "," .. tostring(tile_position.y)
+	return canvas_key
+end
+
+local function remove_canvas_object(canvas_key)
+	if not _canvas[canvas_key] then
+		return
+	end
+	go.delete(_canvas[canvas_key])
+	_canvas[canvas_key] = nil
+end
+
+local function add_canvas_object(canvas_key, mouse_position)
+	remove_canvas_object(canvas_key)
+	local object = _prototype.data.callback(_prototype.data.arg)
+	local position = m_tile.pixel_to_snap(mouse_position)
+	go.set_position(position, object)
+	_canvas[canvas_key] = object
 end
 
 --------------------------------------------------------------------------------
@@ -34,10 +98,32 @@ end
 
 function init(self)
 	msg.post("#", _message_acquire_input_focus)
-	m_ui.init(m_ui.group_editor)
+	m_ui.init(m_ui.group_editor, ui_enter_callback, ui_exit_callback, ui_selected_callback)
+end
+
+function final(self)
+	m_ui.final(m_ui.group_editor)
 end
 
 function update(self, dt)
 	m_ui.update()
-	handle_move()
+	local mouse_position = m_input.get_mouse_position()
+	local canvas_key = get_canvas_key(mouse_position)
+	if m_input.is_state_active(m_input.input_mouse_button_left) and canvas_key and _prototype.object then
+		add_canvas_object(canvas_key, mouse_position)
+	end
+	if m_input.is_state_active(m_input.input_mouse_button_right) and canvas_key then
+		remove_canvas_object(canvas_key)
+	end
+	if m_input.get_state(m_input.input_escape) == m_input.state_pressed then
+		if _prototype.object then
+			go.delete(_prototype.object)
+			_prototype.data = nil
+			_prototype.object = nil
+		end
+	end
+	if _prototype.object and mouse_position then
+		local position = m_tile.pixel_to_snap(mouse_position)
+		go.set_position(position, _prototype.object)
+	end
 end

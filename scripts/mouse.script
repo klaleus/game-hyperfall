@@ -2,6 +2,7 @@
 -- Dependencies
 --------------------------------------------------------------------------------
 
+local m_input = require("modules.input")
 local m_ui = require("modules.ui")
 
 --------------------------------------------------------------------------------
@@ -15,6 +16,11 @@ local _collision_group_ui = hash("ui")
 --------------------------------------------------------------------------------
 -- Public Functions
 --------------------------------------------------------------------------------
+
+function update(self, dt)
+	local mouse_position = m_input.get_mouse_position()
+	go.set_position(mouse_position)
+end
 
 function on_message(self, message_id, message, sender)
 	if message_id == _message_trigger_response then
